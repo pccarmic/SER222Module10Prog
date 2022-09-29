@@ -69,14 +69,14 @@ public class  CompletedLinearProbingHT<Key, Value> implements ProbingHT<Key, Val
         int i = 0;
         for (i = hash(key, i); entries[i] != null; i = (i + 1) % M) {
             if (entries[i].key.equals(key)){
-                for (int j = (i + 1) % M; entries[i] != null ; j = (j + 1) % M) {
-                    entries[i] = entries[j];
+                while(entries[i] != null){
+                    entries[i] = entries[(i + 1) % M];
                     i = (i + 1) % M;
                 }
-                entries[i] = null;
-                N--;
             }
         }
+        entries[i] = null;
+        N--;
     }
 
     @Override
